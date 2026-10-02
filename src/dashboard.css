@@ -1,0 +1,557 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+    margin: 0;
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    background: #111827;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 30px 18px;
+}
+
+.logo {
+    padding: 0 15px;
+    margin-bottom: 45px;
+}
+
+.logo h2 {
+    font-size: 26px;
+    letter-spacing: 0.5px;
+}
+
+
+/* ================= NAVIGATION ================= */
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar nav a {
+    display: block;
+
+    text-decoration: none;
+    color: #cbd5e1;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    padding: 15px 18px;
+
+    border-radius: 9px;
+
+    transition: 0.25s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #2563eb;
+    color: white;
+}
+
+
+/* ================= MAIN CONTENT ================= */
+
+.main-content {
+    min-height: 100vh;
+
+    margin-left: 250px;
+
+    padding: 35px;
+}
+
+
+/* ================= TOP BAR ================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.topbar h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.topbar p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+/* ================= PROFILE ================= */
+
+.profile {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profile-circle {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* ================= CARDS ================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 22px;
+
+    margin-bottom: 28px;
+}
+
+.card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+
+    min-width: 0;
+}
+
+.card p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 14px;
+}
+
+.card h2 {
+    font-size: 28px;
+
+    margin-bottom: 8px;
+}
+
+.card span {
+    font-size: 13px;
+
+    color: #94a3b8;
+}
+
+
+/* ================= DASHBOARD GRID ================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+}
+
+.panel {
+    background: white;
+
+    padding: 28px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+
+    min-width: 0;
+}
+
+
+/* ================= PANEL HEADER ================= */
+
+.panel-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 22px;
+
+    gap: 10px;
+}
+
+.panel-header h2 {
+    font-size: 21px;
+}
+
+.panel-header a {
+    text-decoration: none;
+
+    color: #2563eb;
+
+    font-size: 14px;
+}
+
+.panel-header select {
+    padding: 8px 10px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 7px;
+
+    background: white;
+}
+
+
+/* ================= TRANSACTIONS ================= */
+
+.transaction {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.transaction:last-child {
+    border-bottom: none;
+}
+
+.transaction > div {
+    min-width: 0;
+}
+
+.transaction h4 {
+    margin: 4px 0 0;
+
+    color: black;
+
+    font-size: 15px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.transaction p {
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.income-amount {
+    color: green;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.expense-amount {
+    color: red;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+
+/* ================= CHART ================= */
+
+.chart-placeholder {
+    height: 220px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-around;
+
+    padding: 20px 10px;
+
+    border-bottom: 1px solid #ddd;
+
+    overflow: hidden;
+}
+
+.bar {
+    width: 32px;
+
+    border-radius: 6px 6px 0 0;
+
+    background: #2563eb;
+}
+
+.bar1 {
+    height: 60px;
+}
+
+.bar2 {
+    height: 100px;
+}
+
+.bar3 {
+    height: 75px;
+}
+
+.bar4 {
+    height: 140px;
+}
+
+.bar5 {
+    height: 110px;
+}
+
+.bar6 {
+    height: 170px;
+}
+
+.bar7 {
+    height: 125px;
+}
+
+.chart-labels {
+    display: flex;
+
+    justify-content: space-around;
+
+    margin-top: 12px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1199px) {
+
+    .main-content {
+        margin-left: 220px;
+        padding: 28px;
+    }
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .panel {
+        padding: 22px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .sidebar {
+        width: 200px;
+        padding: 24px 12px;
+    }
+
+    .logo {
+        padding: 0 10px;
+        margin-bottom: 30px;
+    }
+
+    .logo h2 {
+        font-size: 23px;
+    }
+
+    .sidebar nav {
+        gap: 8px;
+    }
+
+    .sidebar nav a {
+        font-size: 14px;
+        padding: 13px 12px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+
+        padding: 18px;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 15px;
+
+        margin-bottom: 25px;
+    }
+
+    .topbar h1 {
+        font-size: 25px;
+    }
+
+    .topbar p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .profile {
+        align-self: flex-end;
+    }
+
+    .profile span {
+        display: none;
+    }
+
+    .profile-circle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card h2 {
+        font-size: 25px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .panel-header {
+        flex-wrap: wrap;
+    }
+
+    .panel-header h2 {
+        font-size: 18px;
+    }
+
+    .panel-header select {
+        padding: 7px 8px;
+        font-size: 12px;
+    }
+
+    .transaction {
+        gap: 8px;
+    }
+
+    .transaction h4 {
+        font-size: 14px;
+    }
+
+    .income-amount,
+    .expense-amount {
+        font-size: 13px;
+    }
+
+    .chart-placeholder {
+        height: 190px;
+        padding: 15px 5px;
+    }
+
+    .bar {
+        width: 18px;
+        min-width: 12px;
+    }
+
+    .chart-labels {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .main-content {
+        padding: 14px;
+    }
+
+    .topbar h1 {
+        font-size: 22px;
+    }
+
+    .topbar p {
+        font-size: 12px;
+    }
+
+    .card {
+        padding: 17px;
+    }
+
+    .card h2 {
+        font-size: 22px;
+    }
+
+    .panel {
+        padding: 15px;
+    }
+
+    .panel-header h2 {
+        font-size: 17px;
+    }
+
+    .bar {
+        width: 13px;
+    }
+}
