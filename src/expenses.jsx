@@ -30,7 +30,7 @@ function Expenses() {
         };
 
         try {
-            const response = await fetch("http://localhost:8081/expense", {
+            const response = await fetch("${import.meta.env.VITE_API_URL}/expense", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -51,7 +51,7 @@ function Expenses() {
      useEffect(() => {
             const userId = localStorage.getItem("userId");
     
-            fetch(`http://localhost:8081/expense?userId=${userId}`)
+            fetch(`${import.meta.env.VITE_API_URL}/expense?userId=${userId}`)
                 .then(response => response.json())
                 .then(data => {
                     setExpense(data);

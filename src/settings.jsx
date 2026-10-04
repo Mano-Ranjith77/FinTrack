@@ -30,7 +30,7 @@ function Settings() {
     try {
 
         const response = await fetch(
-            `http://localhost:8081/update-profile/${userId}`,
+            `${import.meta.env.VITE_API_URL}/update-profile/${userId}`,
             {
                 method: "PUT",
                 headers: {
@@ -74,7 +74,7 @@ function Settings() {
     try {
 
         const response = await fetch(
-            `http://localhost:8081/update-password/${userId}`,
+            `${import.meta.env.VITE_API_URL}/update-password/${userId}`,
             {
                 method: "PUT",
                 headers: {

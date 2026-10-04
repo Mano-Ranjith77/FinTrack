@@ -20,7 +20,7 @@ function Signup() {
 
         try {
 
-            const response = await fetch("http://localhost:8081/register", {
+            const response = await fetch("${import.meta.env.VITE_API_URL}/register", {
                 method: "POST",
 
                 headers: {

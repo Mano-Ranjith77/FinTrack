@@ -24,7 +24,7 @@ function Income() {
         };
 
         try {
-            const response = await fetch("http://localhost:8081/income", {
+            const response = await fetch("${import.meta.env.VITE_API_URL}/income", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -49,7 +49,7 @@ function Income() {
     useEffect(() => {
         const userId = localStorage.getItem("userId");
 
-        fetch(`http://localhost:8081/income?userId=${userId}`)
+        fetch(`${import.meta.env.VITE_API_URL}/income?userId=${userId}`)
             .then(response => response.json())
             .then(data => {
                 setIncomes(data);

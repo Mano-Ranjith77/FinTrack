@@ -14,7 +14,7 @@ function Analytics() {
     useEffect(() => {
         const userId = localStorage.getItem("userId");
 
-        fetch(`http://localhost:8081/income?userId=${userId}`)
+        fetch(`${import.meta.env.VITE_API_URL}/income?userId=${userId}`)
             .then(response => response.json())
             .then(data => {
                 setIncomes(data);
@@ -27,7 +27,7 @@ function Analytics() {
     useEffect(() => {
         const userId = localStorage.getItem("userId");
 
-        fetch(`http://localhost:8081/expense?userId=${userId}`)
+        fetch(`${import.meta.env.VITE_API_URL}/expense?userId=${userId}`)
             .then(response => response.json())
             .then(data => {
                 setExpense(data);
