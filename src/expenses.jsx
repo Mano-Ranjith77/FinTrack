@@ -30,7 +30,7 @@ function Expenses() {
         };
 
         try {
-            const response = await fetch("${import.meta.env.VITE_API_URL}/expense", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/expense`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
