@@ -292,7 +292,7 @@ function Dashboard() {
                                 Recent Transactions
                             </h2>
 
-                            <Link to="/expenses">
+                            <Link to="/analytics">
                                 View All
                             </Link>
 
