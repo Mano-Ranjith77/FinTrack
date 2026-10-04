@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,71 +23,89 @@ import com.appservices.app.service.dto.IncomeDTO;
 import com.appservices.app.service.dto.PersonalexpDTO;
 
 @RestController
-@CrossOrigin(origins = {
-    "http://localhost:5173",
-    "https://fin-track-fpfzf6et1-manoranjith050-7514.vercel.app"
-})
+@CrossOrigin(
+    origins = {
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "https://fin-track-mu-sandy.vercel.app",
+        "https://fin-track-fpfzf6et1-manoranjith050-7514.vercel.app"
+    },
+    methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS
+    }
+)
 public class PersonalexpController {
 
-	private final IncomeRepository incomerepository;
-	private final PersonalexpServiceImpl personalexpService;
+    private final IncomeRepository incomerepository;
+    private final PersonalexpServiceImpl personalexpService;
 
-	PersonalexpController(PersonalexpServiceImpl personalexpService, IncomeRepository incomerepository) {
+    PersonalexpController(
+            PersonalexpServiceImpl personalexpService,
+            IncomeRepository incomerepository) {
 
-		this.personalexpService = personalexpService;
-		this.incomerepository = incomerepository;
-	}
+        this.personalexpService = personalexpService;
+        this.incomerepository = incomerepository;
+    }
 
-	@PostMapping("/register")
-	public String input(@RequestBody PersonalexpDTO personalexpDTO) {
-		personalexpService.saveuser(personalexpDTO);
-		return "Successfully Registered";
-	}
+    @PostMapping("/register")
+    public String input(@RequestBody PersonalexpDTO personalexpDTO) {
+        personalexpService.saveuser(personalexpDTO);
+        return "Successfully Registered";
+    }
 
-	@PostMapping("/income")
-	public String income(@RequestBody IncomeDTO incomeDTO) {
-		personalexpService.income(incomeDTO);
-		return "Income Updated";
-	}
+    @PostMapping("/income")
+    public String income(@RequestBody IncomeDTO incomeDTO) {
+        personalexpService.income(incomeDTO);
+        return "Income Updated";
+    }
 
-	@PostMapping("/login")
-	public Map<String, Object> login(@RequestBody PersonalexpDTO personalexpDTO) {
+    @PostMapping("/login")
+    public Map<String, Object> login(@RequestBody PersonalexpDTO personalexpDTO) {
+        return personalexpService.login(
+                personalexpDTO.getEmail(),
+                personalexpDTO.getPassword()
+        );
+    }
 
-		return personalexpService.login(personalexpDTO.getEmail(), personalexpDTO.getPassword());
-	}
+    @GetMapping("/income")
+    public List<Income> getIncome(@RequestParam long userId) {
+        return personalexpService.getIncome(userId);
+    }
 
-	@GetMapping("/income")
-	public List<Income> getIncome(@RequestParam long userId) {
-		return personalexpService.getIncome(userId);
-	}
+    @PostMapping("/expense")
+    public String expense(@RequestBody ExpenseDTO expenseDTO) {
+        personalexpService.expense(expenseDTO);
+        return "Expense Updated";
+    }
 
-	@PostMapping("/expense")
-	public String expense(@RequestBody ExpenseDTO expenseDTO) {
-		personalexpService.expense(expenseDTO);
-		return "Expense Updated";
-	}
+    @GetMapping("/expense")
+    public List<Expense> getExpense(@RequestParam long userId) {
+        return personalexpService.getExpense(userId);
+    }
 
-	@GetMapping("/expense")
-	public List<Expense> getExpense(@RequestParam long userId) {
-		return personalexpService.getExpense(userId);
-	}
+    @GetMapping("/recent-transactions")
+    public List<Map<String, Object>> getRecentTransaction(
+            @RequestParam Long userId) {
 
-	@GetMapping("/recent-transactions")
-	public List<Map<String, Object>> getRecentTransaction(@RequestParam Long userId) {
+        return personalexpService.getRecentTransactions(userId);
+    }
 
-		return personalexpService.getRecentTransactions(userId);
-	}
+    @PutMapping("/update-profile/{id}")
+    public String updateProfile(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> request) {
 
-	@PutMapping("/update-profile/{id}")
-	public String updateProfile(@PathVariable Long id, @RequestBody Map<String, String> request) {
+        String name = request.get("name");
+        String email = request.get("email");
 
-		String name = request.get("name");
-		String email = request.get("email");
+        return personalexpService.updateProfile(id, name, email);
+    }
 
-		return personalexpService.updateProfile(id, name, email);
-	}
-
-	@PutMapping("/update-password/{id}")
+    @PutMapping("/update-password/{id}")
     public String updatePassword(
             @PathVariable Long id,
             @RequestBody Map<String, String> request) {
@@ -99,4 +118,5 @@ public class PersonalexpController {
                 currentPassword,
                 newPassword
         );
-    }}
+    }
+}
