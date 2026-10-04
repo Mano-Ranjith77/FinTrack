@@ -11,7 +11,7 @@ body {
 }
 
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
 
 .sidebar {
     width: 240px;
@@ -67,7 +67,7 @@ body {
 }
 
 
-/* MAIN CONTENT */
+/* ================= MAIN CONTENT ================= */
 
 .main-content {
     margin-left: 240px;
@@ -80,7 +80,7 @@ body {
 }
 
 
-/* TOPBAR */
+/* ================= TOPBAR ================= */
 
 .topbar {
     display: flex;
@@ -130,7 +130,7 @@ body {
 }
 
 
-/* SETTINGS PANEL */
+/* ================= SETTINGS PANEL ================= */
 
 .settings-panel {
     background: white;
@@ -145,7 +145,7 @@ body {
 }
 
 
-/* PANEL TITLE */
+/* ================= PANEL TITLE ================= */
 
 .panel-title {
     margin-bottom: 25px;
@@ -164,7 +164,7 @@ body {
 }
 
 
-/* PROFILE */
+/* ================= PROFILE ================= */
 
 .profile-section {
     display: flex;
@@ -196,6 +196,7 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 }
 
@@ -210,7 +211,7 @@ body {
 }
 
 
-/* FORM */
+/* ================= FORM ================= */
 
 .form-grid {
     display: grid;
@@ -251,7 +252,7 @@ body {
 }
 
 
-/* SAVE BUTTON */
+/* ================= SAVE BUTTON ================= */
 
 .save-btn {
     padding: 12px 20px;
@@ -278,7 +279,7 @@ body {
 }
 
 
-/* PREFERENCES */
+/* ================= PREFERENCES ================= */
 
 .preference-item {
     display: flex;
@@ -319,7 +320,7 @@ body {
 }
 
 
-/* TOGGLE */
+/* ================= TOGGLE ================= */
 
 .switch {
     position: relative;
@@ -379,7 +380,7 @@ body {
 }
 
 
-/* ACCOUNT */
+/* ================= ACCOUNT ================= */
 
 .danger-panel {
     display: flex;
@@ -420,7 +421,7 @@ body {
 }
 
 
-/* TABLET */
+/* ================= TABLET ================= */
 
 @media (max-width: 1000px) {
 
@@ -430,47 +431,14 @@ body {
 }
 
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
-@media (max-width: 700px) {
-
-    .sidebar {
-        width: 180px;
-
-        height: 100vh;
-
-        padding: 25px 12px;
-    }
-
-    .logo {
-        padding: 0 12px;
-
-        margin-bottom: 35px;
-    }
-
-    .logo h2 {
-        display: block;
-
-        font-size: 22px;
-    }
-
-    .sidebar nav {
-        gap: 8px;
-    }
-
-    .sidebar nav a,
-    .logout a {
-        font-size: 14px;
-
-        padding: 13px 12px;
-
-        text-align: left;
-    }
+@media (max-width: 767px) {
 
     .main-content {
-        margin-left: 180px;
+        margin-left: 0;
 
-        width: calc(100% - 180px);
+        width: 100%;
 
         padding: 18px;
     }

@@ -12,6 +12,8 @@ body {
 }
 
 
+/* ================= SIDEBAR ================= */
+
 .sidebar {
     width: 240px;
     height: 100vh;
@@ -65,15 +67,25 @@ body {
     margin-top: auto;
 }
 
+
+/* ================= MAIN CONTENT ================= */
+
 .main-content {
     margin-left: 240px;
+
     padding: 30px;
+
     width: calc(100% - 240px);
 }
 
+
+/* ================= TOPBAR ================= */
+
 .topbar {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     margin-bottom: 30px;
@@ -81,6 +93,7 @@ body {
 
 .topbar h1 {
     font-size: 30px;
+
     margin-bottom: 6px;
 }
 
@@ -90,7 +103,9 @@ body {
 
 .profile {
     display: flex;
+
     align-items: center;
+
     gap: 10px;
 
     font-weight: bold;
@@ -103,14 +118,22 @@ body {
     border-radius: 50%;
 
     background: #2563eb;
+
     color: white;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 }
+
+
+/* ================= INCOME CARDS ================= */
+
 .income-cards {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
 
     gap: 20px;
@@ -130,30 +153,51 @@ body {
 
 .card p {
     color: #64748b;
+
     margin-bottom: 12px;
 }
 
 .card h2 {
     font-size: 26px;
+
     margin-bottom: 8px;
 }
 
 .card span {
     color: #94a3b8;
+
     font-size: 13px;
 }
+
+
+/* ================= CONTENT GRID ================= */
+
 .content-grid {
     display: grid;
+
     grid-template-columns: 0.8fr 1.2fr;
+
     gap: 25px;
+
     align-items: start;
+
     height: auto;
 }
+
+
+/* ================= LEFT PANEL ================= */
+
 .add-income {
     height: auto !important;
+
     max-height: none !important;
+
     overflow: visible !important;
 }
+
+
+/* ================= PANELS ================= */
+
 .panel {
     background: white;
 
@@ -170,9 +214,14 @@ body {
 
 .subtitle {
     color: #94a3b8;
+
     font-size: 14px;
+
     margin-bottom: 20px;
 }
+
+
+/* ================= FORM ================= */
 
 .form-group {
     margin-bottom: 18px;
@@ -182,6 +231,7 @@ body {
     display: block;
 
     font-size: 14px;
+
     font-weight: bold;
 
     margin-bottom: 7px;
@@ -211,8 +261,12 @@ body {
 
 .form-group textarea {
     height: 80px;
+
     resize: none;
 }
+
+
+/* ================= BUTTON ================= */
 
 form button {
     width: 100%;
@@ -224,9 +278,11 @@ form button {
     border-radius: 7px;
 
     background: #2563eb;
+
     color: white;
 
     font-size: 15px;
+
     font-weight: bold;
 
     cursor: pointer;
@@ -239,10 +295,13 @@ form button:hover {
 }
 
 
+/* ================= PANEL HEADER ================= */
+
 .panel-header {
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
     margin-bottom: 20px;
@@ -261,27 +320,41 @@ form button:hover {
 }
 
 
+/* ================= INCOME HISTORY ================= */
+
+.income-history {
+    height: 500px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+.income-list {
+    flex: 1;
+
+    overflow-y: auto;
+
+    min-height: 0;
+
+    overflow-x: hidden;
+}
+
+
+/* ================= INCOME ITEM ================= */
+
 .income-item {
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
     padding: 18px 0;
 
     border-bottom: 1px solid #eee;
-}
-.income-history {
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-.income-list {
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
-    overflow-x: hidden;
 }
 
 .income-item:last-child {
@@ -305,7 +378,9 @@ form button:hover {
     background: #dcfce7;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 }
 
@@ -324,6 +399,7 @@ form button:hover {
 }
 
 
+/* ================= TABLET ================= */
 
 @media (max-width: 1000px) {
 
@@ -335,38 +411,17 @@ form button:hover {
         grid-template-columns: 1fr;
     }
 }
-@media (max-width: 700px) {
 
-    .sidebar {
-        width: 180px;
-        height: 100vh;
-        padding: 25px 12px;
-    }
 
-    .logo {
-        padding: 0 12px;
-        margin-bottom: 35px;
-    }
+/* ================= MOBILE ================= */
 
-    .logo h2 {
-        display: block;
-        font-size: 22px;
-    }
-
-    .sidebar nav {
-        gap: 8px;
-    }
-
-    .sidebar nav a,
-    .logout a {
-        font-size: 14px;
-        padding: 13px 12px;
-        text-align: left;
-    }
+@media (max-width: 767px) {
 
     .main-content {
-        margin-left: 180px;
-        width: calc(100% - 180px);
+        margin-left: 0;
+
+        width: 100%;
+
         padding: 18px;
     }
 
@@ -384,11 +439,13 @@ form button:hover {
 
     .income-cards {
         grid-template-columns: 1fr;
+
         gap: 15px;
     }
 
     .content-grid {
         grid-template-columns: 1fr;
+
         gap: 15px;
     }
 

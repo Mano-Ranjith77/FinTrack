@@ -196,7 +196,9 @@ body {
     border-radius: 12px;
 
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-     max-height: 500px;
+
+    max-height: 500px;
+
     overflow-y: auto;
 }
 
@@ -325,45 +327,12 @@ body {
 
 /* MOBILE */
 
-@media (max-width: 700px) {
-
-    .sidebar {
-        width: 180px;
-
-        height: 100vh;
-
-        padding: 25px 12px;
-    }
-
-    .logo {
-        padding: 0 12px;
-
-        margin-bottom: 35px;
-    }
-
-    .logo h2 {
-        display: block;
-
-        font-size: 22px;
-    }
-
-    .sidebar nav {
-        gap: 8px;
-    }
-
-    .sidebar nav a,
-    .logout a {
-        font-size: 14px;
-
-        padding: 13px 12px;
-
-        text-align: left;
-    }
+@media (max-width: 767px) {
 
     .main-content {
-        margin-left: 180px;
+        margin-left: 0;
 
-        width: calc(100% - 180px);
+        width: 100%;
 
         padding: 18px;
     }
