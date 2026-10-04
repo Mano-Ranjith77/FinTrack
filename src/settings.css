@@ -445,6 +445,7 @@ body {
 
     .topbar {
         margin-bottom: 25px;
+        padding-top: 55px;
     }
 
     .topbar h1 {
@@ -456,7 +457,7 @@ body {
     }
 
     .profile span {
-        display: none;
+        display: flex;
     }
 
     .profile-circle {

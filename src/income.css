@@ -424,6 +424,9 @@ form button:hover {
 
         padding: 18px;
     }
+    .topbar{
+        padding-top: 55px;
+    }
 
     .topbar h1 {
         font-size: 24px;
@@ -434,7 +437,7 @@ form button:hover {
     }
 
     .profile span {
-        display: none;
+        display: flex;
     }
 
     .income-cards {
