@@ -22,7 +22,7 @@ import com.appservices.app.service.dto.IncomeDTO;
 import com.appservices.app.service.dto.PersonalexpDTO;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:5174" })
+@CrossOrigin("https://fin-track-mu-sandy.vercel.app")
 public class PersonalexpController {
 
 	private final IncomeRepository incomerepository;
