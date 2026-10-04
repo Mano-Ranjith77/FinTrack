@@ -1,21 +1,26 @@
 import "./expenses.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 
 function Expenses() {
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName");
+
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const [category, setCategory] = useState("");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
     const [paymethod, setPayMethod] = useState("");
-    const [expense , setExpense] = useState([]);
+    const [expense, setExpense] = useState([]);
     const [description, setDescription] = useState("");
+
     if (!userName) {
         navigate("/");
         return null;
     }
-     const expSubmit = async (event) => {
+
+    const expSubmit = async (event) => {
         event.preventDefault();
 
         const userId = localStorage.getItem("userId");
@@ -25,7 +30,7 @@ function Expenses() {
             amount: amount,
             date: date,
             paymethod: paymethod,
-            description : description,
+            description: description,
             userId: userId
         };
 
@@ -47,49 +52,98 @@ function Expenses() {
             console.error(error);
             alert("Something went wrong!");
         }
-    };  
-     useEffect(() => {
-            const userId = localStorage.getItem("userId");
-    
-            fetch(`${import.meta.env.VITE_API_URL}/expense?userId=${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    setExpense(data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }, []);
-        const totalExpense = expense.reduce((total, expense) => total + expense.amount, 0);
+    };
+
+    useEffect(() => {
+        const userId = localStorage.getItem("userId");
+
+        fetch(`${import.meta.env.VITE_API_URL}/expense?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                setExpense(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, []);
+
+    const totalExpense = expense.reduce(
+        (total, expense) => total + expense.amount,
+        0
+    );
+
     return (
         <>
+            {/* HAMBURGER BUTTON */}
+
+            <button
+                className="menu-button"
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+            {/* SIDEBAR OVERLAY */}
+
+            {menuOpen && (
+                <div
+                    className="sidebar-overlay"
+                    onClick={() => setMenuOpen(false)}
+                ></div>
+            )}
+
             {/* SIDEBAR */}
 
-            <aside className="sidebar">
+            <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}>
 
                 <div className="logo">
                     <h2>FinTrack</h2>
                 </div>
 
                 <nav>
-                    <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/income">Income</Link>
-                    <Link to="/expenses" className="active">
+
+                    <Link
+                        to="/dashboard"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Dashboard
+                    </Link>
+
+                    <Link
+                        to="/income"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Income
+                    </Link>
+
+                    <Link
+                        to="/expenses"
+                        className="active"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Expenses
                     </Link>
-                    <Link to="/analytics">Analytics</Link>
 
-                    <Link to="/settings">Settings</Link>
+                    <Link
+                        to="/analytics"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Analytics
+                    </Link>
+
+                    <Link
+                        to="/settings"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Settings
+                    </Link>
+
                 </nav>
-
-
 
             </aside>
 
-
-
             <main className="main-content">
-
 
                 <header className="topbar">
 
@@ -101,7 +155,9 @@ function Expenses() {
                     <div className="profile">
 
                         <div className="profile-circle">
-                            {userName ? userName.charAt(0).toUpperCase() : "U"}
+                            {userName
+                                ? userName.charAt(0).toUpperCase()
+                                : "U"}
                         </div>
 
                         <span>{userName || "User"}</span>
@@ -109,7 +165,6 @@ function Expenses() {
                     </div>
 
                 </header>
-
 
                 {/* EXPENSE CARDS */}
 
@@ -125,13 +180,7 @@ function Expenses() {
 
                     </div>
 
-
-                    
-
-
-
                 </section>
-
 
                 {/* CONTENT GRID */}
 
@@ -145,7 +194,6 @@ function Expenses() {
                             Record a new expense.
                         </p>
 
-
                         <form>
 
                             {/* CATEGORY */}
@@ -156,7 +204,12 @@ function Expenses() {
                                     Expense Category
                                 </label>
 
-                                <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                                <select
+                                    id="category"
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
+                                    required
+                                >
 
                                     <option value="">
                                         Select category
@@ -198,7 +251,6 @@ function Expenses() {
 
                             </div>
 
-
                             {/* AMOUNT */}
 
                             <div className="form-group">
@@ -218,7 +270,6 @@ function Expenses() {
 
                             </div>
 
-
                             {/* DATE */}
 
                             <div className="form-group">
@@ -237,7 +288,6 @@ function Expenses() {
 
                             </div>
 
-
                             {/* PAYMENT METHOD */}
 
                             <div className="form-group">
@@ -246,7 +296,12 @@ function Expenses() {
                                     Payment Method
                                 </label>
 
-                                <select id="payment" required value={paymethod} onChange={(e) => setPayMethod(e.target.value)}>
+                                <select
+                                    id="payment"
+                                    required
+                                    value={paymethod}
+                                    onChange={(e) => setPayMethod(e.target.value)}
+                                >
 
                                     <option value="">
                                         Select payment method
@@ -272,7 +327,6 @@ function Expenses() {
 
                             </div>
 
-
                             {/* DESCRIPTION */}
 
                             <div className="form-group">
@@ -290,7 +344,6 @@ function Expenses() {
 
                             </div>
 
-
                             <button type="submit" onClick={expSubmit}>
                                 + Add Expense
                             </button>
@@ -298,7 +351,6 @@ function Expenses() {
                         </form>
 
                     </div>
-
 
                     {/* EXPENSE HISTORY */}
 
@@ -316,7 +368,6 @@ function Expenses() {
 
                             </div>
 
-
                             <select>
 
                                 <option>This Month</option>
@@ -328,14 +379,24 @@ function Expenses() {
                             </select>
 
                         </div>
+
                         {expense.map((item) => (
-                            <div className="expense-item" key={item.id}>
+
+                            <div
+                                className="expense-item"
+                                key={item.id}
+                            >
 
                                 <div className="expense-info">
 
                                     <div>
-                                        <h4>{item.category.toUpperCase()}</h4>
+
+                                        <h4>
+                                            {item.category.toUpperCase()}
+                                        </h4>
+
                                         <p>{item.date}</p>
+
                                     </div>
 
                                 </div>
@@ -345,7 +406,9 @@ function Expenses() {
                                 </strong>
 
                             </div>
+
                         ))}
+
                     </div>
 
                 </section>

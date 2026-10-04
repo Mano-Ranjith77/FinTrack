@@ -5,12 +5,17 @@ import { useState, useEffect } from "react";
 function Analytics() {
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName");
+
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const [incomes, setIncomes] = useState([]);
     const [expense, setExpense] = useState([]);
+
     if (!userName) {
         navigate("/");
         return null;
     }
+
     useEffect(() => {
         const userId = localStorage.getItem("userId");
 
@@ -23,7 +28,12 @@ function Analytics() {
                 console.error(error);
             });
     }, []);
-    const totalIncome = incomes.reduce((total, income) => total + income.amount, 0);
+
+    const totalIncome = incomes.reduce(
+        (total, income) => total + income.amount,
+        0
+    );
+
     useEffect(() => {
         const userId = localStorage.getItem("userId");
 
@@ -36,12 +46,36 @@ function Analytics() {
                 console.error(error);
             });
     }, []);
-    const totalExpense = expense.reduce((total, expense) => total + expense.amount, 0);
+
+    const totalExpense = expense.reduce(
+        (total, expense) => total + expense.amount,
+        0
+    );
+
     return (
         <>
+            {/* HAMBURGER BUTTON */}
+
+            <button
+                className="menu-button"
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+            {/* SIDEBAR OVERLAY */}
+
+            {menuOpen && (
+                <div
+                    className="sidebar-overlay"
+                    onClick={() => setMenuOpen(false)}
+                ></div>
+            )}
+
             {/* SIDEBAR */}
 
-            <aside className="sidebar">
+            <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}>
 
                 <div className="logo">
                     <h2>FinTrack</h2>
@@ -49,32 +83,45 @@ function Analytics() {
 
                 <nav>
 
-                    <Link to="/dashboard">
+                    <Link
+                        to="/dashboard"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Dashboard
                     </Link>
 
-                    <Link to="/income">
+                    <Link
+                        to="/income"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Income
                     </Link>
 
-                    <Link to="/expenses">
+                    <Link
+                        to="/expenses"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Expenses
                     </Link>
 
-                    <Link to="/analytics" className="active">
+                    <Link
+                        to="/analytics"
+                        className="active"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Analytics
                     </Link>
 
-                    <Link to="/settings">
+                    <Link
+                        to="/settings"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Settings
                     </Link>
 
                 </nav>
 
-
-
             </aside>
-
 
             {/* MAIN CONTENT */}
 
@@ -97,7 +144,9 @@ function Analytics() {
                     <div className="profile">
 
                         <div className="profile-circle">
-                            {userName ? userName.charAt(0).toUpperCase() : "U"}
+                            {userName
+                                ? userName.charAt(0).toUpperCase()
+                                : "U"}
                         </div>
 
                         <span>{userName || "User"}</span>
@@ -105,7 +154,6 @@ function Analytics() {
                     </div>
 
                 </header>
-
 
                 {/* SUMMARY CARDS */}
 
@@ -121,7 +169,6 @@ function Analytics() {
 
                     </div>
 
-
                     <div className="card expense-card">
 
                         <p>Total Expenses</p>
@@ -131,7 +178,6 @@ function Analytics() {
                         <span>All expenses</span>
 
                     </div>
-
 
                     <div className="card balance-card">
 
@@ -145,11 +191,9 @@ function Analytics() {
 
                 </section>
 
-
                 {/* INCOME + EXPENSE LIST */}
 
                 <section className="analytics-grid">
-
 
                     {/* INCOME LIST */}
 
@@ -167,17 +211,25 @@ function Analytics() {
 
                             </div>
 
-
-
                         </div>
+
                         {incomes.map((income) => (
-                            <div className="analytics-item" key={income.id}>
+
+                            <div
+                                className="analytics-item"
+                                key={income.id}
+                            >
 
                                 <div className="item-info">
 
                                     <div>
-                                        <h4>{income.source.toUpperCase()}</h4>
+
+                                        <h4>
+                                            {income.source.toUpperCase()}
+                                        </h4>
+
                                         <p>{income.date}</p>
+
                                     </div>
 
                                 </div>
@@ -187,9 +239,10 @@ function Analytics() {
                                 </strong>
 
                             </div>
-                        ))}
-                    </div>
 
+                        ))}
+
+                    </div>
 
                     {/* EXPENSE LIST */}
 
@@ -207,16 +260,25 @@ function Analytics() {
 
                             </div>
 
-
                         </div>
+
                         {expense.map((item) => (
-                            <div className="analytics-item" key={item.id}>
+
+                            <div
+                                className="analytics-item"
+                                key={item.id}
+                            >
 
                                 <div className="item-info">
 
                                     <div>
-                                        <h4>{item.category.toUpperCase()}</h4>
+
+                                        <h4>
+                                            {item.category.toUpperCase()}
+                                        </h4>
+
                                         <p>{item.date}</p>
+
                                     </div>
 
                                 </div>
@@ -226,7 +288,9 @@ function Analytics() {
                                 </strong>
 
                             </div>
+
                         ))}
+
                     </div>
 
                 </section>
@@ -236,4 +300,4 @@ function Analytics() {
     );
 }
 
-export default Analytics;
+export default Analytics;   

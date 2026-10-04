@@ -407,24 +407,23 @@ body {
 @media (max-width: 700px) {
 
     .sidebar {
-        width: 180px;
-
+        width: 75%;
+        max-width: 280px;
         height: 100vh;
 
         padding: 25px 12px;
     }
 
     .logo {
-        padding: 0 12px;
+    padding: 0 10px;
+    margin-bottom: 30px;
+    white-space: nowrap;
+}
 
-        margin-bottom: 35px;
-    }
-
-    .logo h2 {
-        display: block;
-
-        font-size: 22px;
-    }
+.logo h2 {
+    font-size: 23px;
+    white-space: nowrap;
+}
 
     .sidebar nav {
         gap: 8px;
@@ -445,7 +444,7 @@ body {
 
         padding: 18px;
     }
-
+    
     .topbar h1 {
         font-size: 24px;
     }

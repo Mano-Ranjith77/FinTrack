@@ -8,101 +8,107 @@ function Settings() {
 
     const userName = localStorage.getItem("userName");
     const userId = localStorage.getItem("userId");
+
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const [newName, setNewName] = useState(userName || "");
-    const [newEmail , setNewEmail] = useState("");
-    const [currentPassword , setCurrentPassword] = useState("");
-    const [newPassword , setNewPassword] = useState("");
+    const [newEmail, setNewEmail] = useState("");
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+
     const handleLogout = () => {
         localStorage.removeItem("userName");
         localStorage.removeItem("userId");
         navigate("/");
     };
+
     const handleSave = async () => {
 
-    if (
-        newName.trim() === "" &&
-        newEmail.trim() === ""
-    ) {
-        alert("Enter a name or email");
-        return;
-    }
-
-    try {
-
-        const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/update-profile/${userId}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: newName,
-                    email: newEmail
-                })
-            }
-        );
-
-        const data = await response.text();
-
-        alert(data);
-
-        if (response.ok) {
-
-            if (newName.trim() !== "") {
-                localStorage.setItem("userName", newName);
-            }
-
-            setNewName("");
-            setNewEmail("");
+        if (
+            newName.trim() === "" &&
+            newEmail.trim() === ""
+        ) {
+            alert("Enter a name or email");
+            return;
         }
 
-    } catch (error) {
+        try {
 
-        console.error("Profile update error:", error);
-        alert("Something went wrong");
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/update-profile/${userId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: newName,
+                        email: newEmail
+                    })
+                }
+            );
 
-    }
-};
+            const data = await response.text();
+
+            alert(data);
+
+            if (response.ok) {
+
+                if (newName.trim() !== "") {
+                    localStorage.setItem("userName", newName);
+                }
+
+                setNewName("");
+                setNewEmail("");
+            }
+
+        } catch (error) {
+
+            console.error("Profile update error:", error);
+            alert("Something went wrong");
+
+        }
+    };
+
     const handlePasswordUpdate = async () => {
 
-    if (currentPassword.trim() === "" || newPassword.trim() === "") {
-        alert("Please fill both password fields");
-        return;
-    }
-
-    try {
-
-        const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/update-password/${userId}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    currentPassword: currentPassword,
-                    newPassword: newPassword
-                })
-            }
-        );
-
-        const data = await response.text();
-
-        alert(data);
-
-        if (response.ok && data === "Password Updated Successfully") {
-            setCurrentPassword("");
-            setNewPassword("");
+        if (currentPassword.trim() === "" || newPassword.trim() === "") {
+            alert("Please fill both password fields");
+            return;
         }
 
-    } catch (error) {
+        try {
 
-        console.error("Password update error:", error);
-        alert("Something went wrong");
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/update-password/${userId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    })
+                }
+            );
 
-    }
-};
+            const data = await response.text();
+
+            alert(data);
+
+            if (response.ok && data === "Password Updated Successfully") {
+                setCurrentPassword("");
+                setNewPassword("");
+            }
+
+        } catch (error) {
+
+            console.error("Password update error:", error);
+            alert("Something went wrong");
+
+        }
+    };
 
     if (!userName) {
         navigate("/");
@@ -111,9 +117,28 @@ function Settings() {
 
     return (
         <>
+            {/* HAMBURGER BUTTON */}
+
+            <button
+                className="menu-button"
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+            {/* SIDEBAR OVERLAY */}
+
+            {menuOpen && (
+                <div
+                    className="sidebar-overlay"
+                    onClick={() => setMenuOpen(false)}
+                ></div>
+            )}
+
             {/* SIDEBAR */}
 
-            <aside className="sidebar">
+            <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}>
 
                 <div className="logo">
                     <h2>FinTrack</h2>
@@ -121,30 +146,45 @@ function Settings() {
 
                 <nav>
 
-                    <Link to="/dashboard">
+                    <Link
+                        to="/dashboard"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Dashboard
                     </Link>
 
-                    <Link to="/income">
+                    <Link
+                        to="/income"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Income
                     </Link>
 
-                    <Link to="/expenses">
+                    <Link
+                        to="/expenses"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Expenses
                     </Link>
 
-                    <Link to="/analytics">
+                    <Link
+                        to="/analytics"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Analytics
                     </Link>
 
-                    <Link to="/settings" className="active">
+                    <Link
+                        to="/settings"
+                        className="active"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         Settings
                     </Link>
 
                 </nav>
 
             </aside>
-
 
             <main className="main-content">
 
@@ -174,7 +214,6 @@ function Settings() {
 
                 </header>
 
-
                 <section className="settings-panel">
 
                     <div className="panel-title">
@@ -186,7 +225,6 @@ function Settings() {
                         </p>
 
                     </div>
-
 
                     <div className="profile-section">
 
@@ -208,7 +246,6 @@ function Settings() {
 
                     </div>
 
-
                     <div className="form-grid">
 
                         <div className="form-group">
@@ -227,7 +264,6 @@ function Settings() {
 
                         </div>
 
-
                         <div className="form-group">
 
                             <label htmlFor="email">
@@ -239,13 +275,12 @@ function Settings() {
                                 id="email"
                                 placeholder="Enter your email"
                                 value={newEmail}
-                                onChange={(e)=> setNewEmail(e.target.value)}
+                                onChange={(e) => setNewEmail(e.target.value)}
                             />
 
                         </div>
 
                     </div>
-
 
                     <button
                         className="save-btn"
@@ -255,7 +290,6 @@ function Settings() {
                     </button>
 
                 </section>
-
 
                 <section className="settings-panel">
 
@@ -268,7 +302,6 @@ function Settings() {
                         </p>
 
                     </div>
-
 
                     <div className="form-grid">
 
@@ -283,11 +316,10 @@ function Settings() {
                                 id="currentPassword"
                                 placeholder="Enter current password"
                                 value={currentPassword}
-                                onChange={(e)=> setCurrentPassword(e.target.value)}
+                                onChange={(e) => setCurrentPassword(e.target.value)}
                             />
 
                         </div>
-
 
                         <div className="form-group">
 
@@ -300,20 +332,21 @@ function Settings() {
                                 id="newPassword"
                                 placeholder="Enter new password"
                                 value={newPassword}
-                                onChange={(e)=>setNewPassword(e.target.value)}
+                                onChange={(e) => setNewPassword(e.target.value)}
                             />
 
                         </div>
 
                     </div>
 
-
-                    <button className="save-btn" onClick={handlePasswordUpdate}>
+                    <button
+                        className="save-btn"
+                        onClick={handlePasswordUpdate}
+                    >
                         Update Password
                     </button>
 
                 </section>
-
 
                 {/* PREFERENCES */}
 
@@ -328,7 +361,6 @@ function Settings() {
                         </p>
 
                     </div>
-
 
                     <div className="preference-item">
 
@@ -351,7 +383,6 @@ function Settings() {
                         </select>
 
                     </div>
-
 
                     <div className="preference-item">
 
@@ -376,7 +407,6 @@ function Settings() {
                     </div>
 
                 </section>
-
 
                 {/* DANGER ZONE */}
 

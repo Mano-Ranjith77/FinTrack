@@ -5,11 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 function Income() {
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName");
+
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const [source, setSource] = useState("");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
     const [description, setDescription] = useState("");
     const [incomes, setIncomes] = useState([]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -42,10 +46,12 @@ function Income() {
             alert("Something went wrong!");
         }
     };
+
     if (!userName) {
         navigate("/");
         return null;
     }
+
     useEffect(() => {
         const userId = localStorage.getItem("userId");
 
@@ -58,28 +64,79 @@ function Income() {
                 console.error(error);
             });
     }, []);
-    const totalIncome = incomes.reduce((total, income) => total + income.amount, 0);
+
+    const totalIncome = incomes.reduce(
+        (total, income) => total + income.amount,
+        0
+    );
+
     return (
         <>
-            <aside className="sidebar">
+            {/* HAMBURGER BUTTON */}
+            <button
+                className="menu-button"
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+            {/* SIDEBAR OVERLAY */}
+            {menuOpen && (
+                <div
+                    className="sidebar-overlay"
+                    onClick={() => setMenuOpen(false)}
+                ></div>
+            )}
+
+            {/* SIDEBAR */}
+            <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}>
 
                 <div className="logo">
                     <h2>FinTrack</h2>
                 </div>
 
                 <nav>
-                    <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/income" className="active">Income</Link>
-                    <Link to="/expenses">Expenses</Link>
-                    <Link to="/analytics">Analytics</Link>
-                    <Link to="/settings">Settings</Link>
+                    <Link
+                        to="/dashboard"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Dashboard
+                    </Link>
+
+                    <Link
+                        to="/income"
+                        className="active"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Income
+                    </Link>
+
+                    <Link
+                        to="/expenses"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Expenses
+                    </Link>
+
+                    <Link
+                        to="/analytics"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Analytics
+                    </Link>
+
+                    <Link
+                        to="/settings"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Settings
+                    </Link>
                 </nav>
-
-
 
             </aside>
 
-
+            {/* MAIN CONTENT */}
             <main className="main-content">
 
                 <header className="topbar">
@@ -90,12 +147,16 @@ function Income() {
                     </div>
 
                     <div className="profile">
-                        <div className="profile-circle">{userName ? userName.charAt(0).toUpperCase() : "U"}</div>
+                        <div className="profile-circle">
+                            {userName
+                                ? userName.charAt(0).toUpperCase()
+                                : "U"}
+                        </div>
+
                         <span>{userName || "User"}</span>
                     </div>
 
                 </header>
-
 
                 <section className="income-cards">
 
@@ -105,12 +166,7 @@ function Income() {
                         <span>This month</span>
                     </div>
 
-                    
-
-                   
-
                 </section>
-
 
                 <section className="content-grid">
 
@@ -130,8 +186,12 @@ function Income() {
                                     Income Source
                                 </label>
 
-                                <select id="source" value={source} onChange={(e) => setSource(e.target.value)}
-                                    required>
+                                <select
+                                    id="source"
+                                    value={source}
+                                    onChange={(e) => setSource(e.target.value)}
+                                    required
+                                >
                                     <option value="">
                                         Select source
                                     </option>
@@ -160,7 +220,6 @@ function Income() {
 
                             </div>
 
-
                             <div className="form-group">
 
                                 <label htmlFor="amount">
@@ -178,7 +237,6 @@ function Income() {
 
                             </div>
 
-
                             <div className="form-group">
 
                                 <label htmlFor="date">
@@ -195,7 +253,6 @@ function Income() {
 
                             </div>
 
-
                             <div className="form-group">
 
                                 <label htmlFor="description">
@@ -211,7 +268,6 @@ function Income() {
 
                             </div>
 
-
                             <button type="submit" onClick={handleSubmit}>
                                 + Add Income
                             </button>
@@ -219,7 +275,6 @@ function Income() {
                         </form>
 
                     </div>
-
 
                     {/* INCOME HISTORY */}
 
@@ -237,36 +292,43 @@ function Income() {
 
                             </div>
 
-
                             <select>
-
                                 <option>This Month</option>
                                 <option>Last Month</option>
                                 <option>This Year</option>
-
                             </select>
 
                         </div>
+
                         <div className="income-list">
-                        {incomes.map((income) => (
-                            <div className="income-item" key={income.id}>
 
-                                <div className="income-info">
+                            {incomes.map((income) => (
+                                <div
+                                    className="income-item"
+                                    key={income.id}
+                                >
 
-                                    <div>
-                                        <h4>{income.source.toUpperCase()}</h4>
-                                        <p>{income.date}</p>
+                                    <div className="income-info">
+
+                                        <div>
+                                            <h4>
+                                                {income.source.toUpperCase()}
+                                            </h4>
+
+                                            <p>{income.date}</p>
+                                        </div>
+
                                     </div>
 
+                                    <strong>
+                                        + ₹{income.amount}
+                                    </strong>
+
                                 </div>
+                            ))}
 
-                                <strong>+ ₹{income.amount}</strong>
+                        </div>
 
-                            </div>
-                        
-                        ))}
-
-                    </div>
                     </div>
 
                 </section>

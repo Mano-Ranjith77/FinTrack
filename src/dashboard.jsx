@@ -13,6 +13,9 @@ function Dashboard() {
     const [transactions, setTransactions] = useState([]);
     const [expense, setExpense] = useState([]);
 
+    const [menuOpen, setMenuOpen] = useState(false);
+
+
     useEffect(() => {
 
         if (!userName) {
@@ -81,41 +84,91 @@ function Dashboard() {
         0
     );
 
+
     const totalExpense = expense.reduce(
         (total, expense) => total + expense.amount,
         0
     );
 
 
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
+
+
     return (
         <>
+
+            {/* MOBILE MENU BUTTON */}
+
+            <button
+                className="menu-button"
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+
+            {/* MOBILE OVERLAY */}
+
+            {menuOpen && (
+                <div
+                    className="sidebar-overlay"
+                    onClick={closeMenu}
+                ></div>
+            )}
+
+
             {/* SIDEBAR */}
 
-            <aside className="sidebar">
+            <aside
+                className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}
+            >
 
                 <div className="logo">
                     <h2>FinTrack</h2>
                 </div>
 
+
                 <nav>
 
-                    <Link to="/dashboard">
+                    <Link
+                        to="/dashboard"
+                        onClick={closeMenu}
+                    >
                         Dashboard
                     </Link>
 
-                    <Link to="/income">
+
+                    <Link
+                        to="/income"
+                        onClick={closeMenu}
+                    >
                         Income
                     </Link>
 
-                    <Link to="/expenses">
+
+                    <Link
+                        to="/expenses"
+                        onClick={closeMenu}
+                    >
                         Expenses
                     </Link>
 
-                    <Link to="/analytics">
+
+                    <Link
+                        to="/analytics"
+                        onClick={closeMenu}
+                    >
                         Analytics
                     </Link>
 
-                    <Link to="/settings">
+
+                    <Link
+                        to="/settings"
+                        onClick={closeMenu}
+                    >
                         Settings
                     </Link>
 
@@ -128,13 +181,16 @@ function Dashboard() {
 
             <main className="main-content">
 
+
                 {/* TOP BAR */}
 
                 <header className="topbar">
 
                     <div>
 
-                        <h1>Dashboard</h1>
+                        <h1>
+                            Dashboard
+                        </h1>
 
                         <p>
                             Welcome back! Here's your financial overview.
@@ -153,6 +209,7 @@ function Dashboard() {
 
                         </div>
 
+
                         <span>
                             {userName || "User"}
                         </span>
@@ -162,15 +219,16 @@ function Dashboard() {
                 </header>
 
 
+                {/* SUMMARY CARDS */}
 
                 <section className="cards">
-
-                    
 
 
                     <div className="card income">
 
-                        <p>Total Income</p>
+                        <p>
+                            Total Income
+                        </p>
 
                         <h2>
                             ₹{totalIncome}
@@ -185,7 +243,9 @@ function Dashboard() {
 
                     <div className="card expense">
 
-                        <p>Total Expenses</p>
+                        <p>
+                            Total Expenses
+                        </p>
 
                         <h2>
                             ₹{totalExpense}
@@ -200,9 +260,13 @@ function Dashboard() {
 
                     <div className="card savings">
 
-                        <p>Savings</p>
+                        <p>
+                            Savings
+                        </p>
 
-                        <h2>₹{totalIncome - totalExpense}</h2>
+                        <h2>
+                            ₹{totalIncome - totalExpense}
+                        </h2>
 
                         <span>
                             This month
@@ -217,6 +281,7 @@ function Dashboard() {
 
                 <section className="dashboard-grid">
 
+
                     {/* RECENT TRANSACTIONS */}
 
                     <div className="panel transactions">
@@ -227,9 +292,9 @@ function Dashboard() {
                                 Recent Transactions
                             </h2>
 
-                            <a href="#">
+                            <Link to="/expenses">
                                 View All
-                            </a>
+                            </Link>
 
                         </div>
 
@@ -243,9 +308,9 @@ function Dashboard() {
 
                                 <div>
 
-                                    <h4>
+                                    <h3>
                                         {transaction.source}
-                                    </h4>
+                                    </h3>
 
                                     <p>
                                         {transaction.date}
@@ -285,6 +350,7 @@ function Dashboard() {
                                 Spending Overview
                             </h2>
 
+
                             <select>
 
                                 <option>
@@ -303,11 +369,17 @@ function Dashboard() {
                         <div className="chart-placeholder">
 
                             <div className="bar bar1"></div>
+
                             <div className="bar bar2"></div>
+
                             <div className="bar bar3"></div>
+
                             <div className="bar bar4"></div>
+
                             <div className="bar bar5"></div>
+
                             <div className="bar bar6"></div>
+
                             <div className="bar bar7"></div>
 
                         </div>
@@ -316,11 +388,17 @@ function Dashboard() {
                         <div className="chart-labels">
 
                             <span>Mon</span>
+
                             <span>Tue</span>
+
                             <span>Wed</span>
+
                             <span>Thu</span>
+
                             <span>Fri</span>
+
                             <span>Sat</span>
+
                             <span>Sun</span>
 
                         </div>
@@ -330,6 +408,7 @@ function Dashboard() {
                 </section>
 
             </main>
+
         </>
     );
 }
